@@ -5,13 +5,10 @@ import re
 import streamlit as st
 import numpy as np
 
-# Optional: Uncomment and set this if pytesseract is not in PATH
-# pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 st.title("🪪 Smart KYC Checker")
 st.write("Upload your Aadhar and PAN card images to automatically extract and verify details.")
 
-# --- Helper Functions ---
 
 def extract_text_from_upload(uploaded_file):
     """Extract text using OCR from uploaded image"""
@@ -43,40 +40,40 @@ def parse_pan(text):
     pan_id = pan_match.group(1) if pan_match else "Not found"
     return {"Name": name, "PAN_ID": pan_id}
 
-# --- Streamlit UI ---
+#I have used streamlit just for little ui
 
 aadhar_file = st.file_uploader("📎 Upload Aadhar Card", type=["png", "jpg", "jpeg"])
 pan_file = st.file_uploader("📎 Upload PAN Card", type=["png", "jpg", "jpeg"])
 
-if st.button("🔍 Run KYC Check"):
+if st.button(" Run KYC Check"):
     if aadhar_file and pan_file:
-        # Extract text
+        
         aadhar_text = extract_text_from_upload(aadhar_file)
         pan_text = extract_text_from_upload(pan_file)
 
-        # Parse info
+        #Parse info
         aadhar_info = parse_aadhar(aadhar_text)
         pan_info = parse_pan(pan_text)
 
-        # Fraud check
+        #  Fraud check
         name_similarity = fuzz.ratio(aadhar_info["Name"].lower(), pan_info["Name"].lower())
 
-        # --- Display Results ---
-        st.success("✅ Extraction Complete!")
+        # Results
+        st.success(" Extraction Complete!")
 
-        st.subheader("📄 Aadhar Details")
+        st.subheader("Aadhar Details")
         st.json(aadhar_info)
 
-        st.subheader("📄 PAN Details")
+        st.subheader("PAN Details")
         st.json(pan_info)
 
-        st.subheader("🕵️ Fraud Check")
+        st.subheader(" Fraud Check")
         st.write(f"**Name similarity:** {name_similarity}%")
 
         if name_similarity > 85:
-            st.success("✔ Names Match — likely same person")
+            st.success("Names Match — likely same person")
         else:
-            st.error("❌ Names do not match! Possible mismatch.")
+            st.error("Names do not match! Possible mismatch.")
     else:
         st.warning("Please upload both Aadhar and PAN images first.")
 
