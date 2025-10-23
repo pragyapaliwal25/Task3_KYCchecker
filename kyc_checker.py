@@ -4,6 +4,7 @@ from fuzzywuzzy import fuzz
 import re
 import streamlit as st
 import numpy as np
+from datetime import datetime
 
 
 st.title("🪪 Smart KYC Checker")
@@ -76,5 +77,7 @@ if st.button(" Run KYC Check"):
             st.error("Names do not match! Possible mismatch.")
     else:
         st.warning("Please upload both Aadhar and PAN images first.")
+        
 
+st.caption(f"Checked on: {datetime.now().strftime('%d-%m-%Y %H:%M:%S')}")
 
