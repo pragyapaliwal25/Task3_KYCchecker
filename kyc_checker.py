@@ -7,7 +7,7 @@ import numpy as np
 from datetime import datetime
 
 
-st.title("🪪 Smart KYC Checker")
+st.title("Smart KYC Checker")
 st.write("Upload your Aadhar and PAN card images to automatically extract and verify details.")
 
 
@@ -43,8 +43,8 @@ def parse_pan(text):
 
 #I have used streamlit just for little ui
 
-aadhar_file = st.file_uploader("📎 Upload Aadhar Card", type=["png", "jpg", "jpeg"])
-pan_file = st.file_uploader("📎 Upload PAN Card", type=["png", "jpg", "jpeg"])
+aadhar_file = st.file_uploader(" Upload Aadhar Card", type=["png", "jpg", "jpeg"])
+pan_file = st.file_uploader(" Upload PAN Card", type=["png", "jpg", "jpeg"])
 
 if st.button(" Run KYC Check"):
     if aadhar_file and pan_file:
